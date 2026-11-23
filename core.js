@@ -64,6 +64,12 @@ export function money(cents) {
   return cents == null ? 'Da indicare' : new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR' }).format(cents / 100);
 }
 
+export function listCountLabel({ count, quantity }) {
+  const products = count === 1 ? '1 prodotto' : count + ' prodotti';
+  const packages = quantity === 1 ? '1 confezione' : quantity + ' confezioni';
+  return products + ' · ' + packages;
+}
+
 export function searchText(value) {
   return value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLocaleLowerCase('it');
 }

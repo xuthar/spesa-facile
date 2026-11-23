@@ -1,4 +1,4 @@
-import { STORAGE_KEY, MAX_QUANTITY, readSavedList, selectedLines, listTotals, groupByDepartment, parsePrice, money, searchText, validQuantity } from './core.js';
+import { STORAGE_KEY, MAX_QUANTITY, readSavedList, selectedLines, listTotals, groupByDepartment, parsePrice, money, searchText, validQuantity, listCountLabel } from './core.js';
 import { createShoppingPdf } from './pdf.js';
 
 const $ = id => document.getElementById(id);
@@ -114,7 +114,7 @@ function renderList() {
   $('total-label').textContent = totals.missing ? 'Totale parziale' : 'Totale';
   for (const id of ['grand-total', 'mobile-total']) $(id).textContent = money(totals.totalCents);
   for (const id of ['header-count', 'mobile-count']) $(id).textContent = totals.count;
-  $('list-count').textContent = totals.count + ' prodotti · ' + totals.quantity + ' confezioni';
+  $('list-count').textContent = listCountLabel(totals);
   $('missing-prices').hidden = !totals.missing;
   $('missing-prices').textContent = totals.missing + ' prodotti con prezzo da indicare, esclusi dal totale.';
   $('download-pdf').disabled = !lines.length;

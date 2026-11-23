@@ -1,4 +1,4 @@
-import { groupByDepartment, listTotals, money } from './core.js';
+import { groupByDepartment, listTotals, money, listCountLabel } from './core.js';
 
 // Standard PDF fonts use WinAnsi. Encode text explicitly so offsets refer to bytes.
 function pdfText(value) {
@@ -59,7 +59,7 @@ export function createShoppingPdf({ title, lines, catalogDate, context, createdA
       text(line, 40, titleY, 18, true);
       titleY += 22;
     }
-    text('Lista del ' + date.format(createdAt) + ' · ' + totals.count + ' prodotti · ' + totals.quantity + ' confezioni', 40, titleY, 9);
+    text('Lista del ' + date.format(createdAt) + ' · ' + listCountLabel(totals), 40, titleY, 9);
     text(context + ' · Prezzi rilevati il ' + date.format(new Date(catalogDate)), 40, titleY + 16, 8, false, '0.36 0.43 0.38');
     y = titleY + 39;
   };
