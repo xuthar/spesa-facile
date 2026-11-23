@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#164f40">
+  <meta name="description" content="Prepara la lista della spesa per reparti, scegli quantità e prezzi, scarica il tuo PDF.">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Spesa Facile · La tua lista della spesa</title>
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <a class="skip" href="#catalogo">Vai ai prodotti</a>
+  <header class="topbar">
+    <a class="brand" href="./" aria-label="Spesa Facile, pagina iniziale"><span class="brand-mark" aria-hidden="true">sf.</span><span>spesa facile</span></a>
+    <button class="list-toggle" id="open-list">La mia lista <span id="header-count">0</span></button>
+  </header>
+  <div class="intro">
+    <div><h1>La tua lista della spesa.</h1><p>Scegli i prodotti, imposta le quantità e porta con te la lista in PDF.</p></div>
+    <div class="source-info"><strong>Catalogo Conad · zona Adria</strong><span id="catalog-date">Caricamento del catalogo…</span><button class="text-button" id="show-prices">Informazioni sui prezzi</button></div>
+  </div>
+  <div class="layout">
+    <aside class="departments" aria-label="Reparti">
+      <h2>Reparti</h2>
+      <label class="mobile-departments" for="department-select">Scegli un reparto</label>
+      <select id="department-select"><option value="">Tutti i reparti</option></select>
+      <nav id="department-nav" aria-label="Filtra per reparto"></nav>
+    </aside>
+    <main id="catalogo" class="catalog" tabindex="-1">
+      <div class="search-wrap"><label for="search">Cerca nel catalogo</label><div class="search-field"><span aria-hidden="true">⌕</span><input type="search" id="search" placeholder="Cerca latte, pasta, una marca…" autocomplete="off"><button id="clear-search" aria-label="Cancella ricerca" hidden>×</button></div></div>
+      <div class="catalog-heading"><div><h2 id="department-title">Tutti i prodotti</h2><p id="results-count" role="status">Caricamento…</p></div><label class="sort-label">Ordina<select id="sort"><option value="name">Nome A–Z</option><option value="price-asc">Prezzo crescente</option><option value="price-desc">Prezzo decrescente</option></select></label></div>
+      <div id="product-grid" class="product-grid" aria-label="Prodotti"></div>
+      <div class="pagination" id="pagination" hidden><button id="previous-page" class="secondary">Precedenti</button><span id="page-label"></span><button id="next-page" class="secondary">Successivi</button></div>
+      <p id="catalog-error" class="notice" hidden>Il catalogo non è stato caricato. <button class="text-button" id="retry-load">Riprova</button></p>
+    </main>
+    <aside class="shopping-list" id="shopping-list" aria-label="La mia lista" tabindex="-1">
+      <div class="list-heading"><h2>La mia lista</h2><button class="icon-button close-list" id="close-list" aria-label="Chiudi lista">×</button></div>
+      <label class="title-label" for="list-title">Nome della lista</label><input id="list-title" class="list-name" maxlength="100" value="La mia spesa">
+      <p class="save-state" id="save-state">Salvata automaticamente su questo dispositivo</p>
+      <div id="list-lines" class="list-lines"></div>
+      <div class="list-summary"><div><span id="total-label">Totale</span><strong id="grand-total">0,00 €</strong></div><p id="list-count">0 prodotti · 0 confezioni</p><p class="missing-prices" id="missing-prices" hidden></p><button class="primary download-pdf" id="download-pdf" disabled>Scarica la lista PDF <span aria-hidden="true">↓</span></button><button class="text-button clear-list" id="clear-list" disabled>Svuota lista</button></div>
+    </aside>
+  </div>
+  <div class="mobile-bar"><button id="mobile-open-list"><span>La mia lista <b id="mobile-count">0</b></span><strong id="mobile-total">0,00 €</strong></button></div>
+  <div class="list-backdrop" id="list-backdrop" hidden></div>
+  <dialog id="price-dialog"><div class="dialog-heading"><h2>I prezzi della tua lista</h2><button class="icon-button" id="close-prices" aria-label="Chiudi informazioni">×</button></div><p id="price-description"></p><p>Le quantità si riferiscono alle confezioni o alle porzioni indicate nella scheda. Il totale si calcola moltiplicando quantità e prezzo unitario.</p><p>Puoi modificare il prezzo direttamente nella lista. Le promozioni legate a quantità, carte fedeltà o buoni richiedono una verifica sul sito Conad. I prodotti a peso variabile hanno un costo stimato.</p><p>Il PDF riporta data della rilevazione, prezzi usati, reparti e subtotali. La lista viene salvata nel browser di questo dispositivo.</p><a href="https://spesaonline.conad.it/tutti-i-prodotti" target="_blank" rel="noopener noreferrer">Consulta Conad Spesa Online</a></dialog>
+  <dialog id="clear-dialog"><h2>Svuotare la lista?</h2><p>Verranno rimossi tutti i prodotti selezionati.</p><div class="dialog-actions"><button class="secondary" id="cancel-clear">Annulla</button><button class="primary" id="confirm-clear">Svuota lista</button></div></dialog>
+  <div class="toast" id="toast" role="status" hidden></div>
+  <footer>Spesa Facile · Lista personale con dati da Conad Spesa Online</footer>
+  <noscript><p>Attiva JavaScript per scegliere i prodotti e generare la lista PDF.</p></noscript>
+</body>
+</html>
